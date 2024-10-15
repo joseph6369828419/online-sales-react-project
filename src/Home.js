@@ -5,7 +5,7 @@ function Home() {
     <div className="homepage">
     <div className="image-container">
         <img
-            src="/Slide2.png" // Replace with your image URL
+            src="/image25.JPG" // Replace with your image URL
             alt="Shop Now"
             className="hero-image"
         />
