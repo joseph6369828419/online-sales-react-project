@@ -2,7 +2,9 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './Register.css';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+
+
+
 const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) => {
   const [userInput1, setUserInput1] = useState("");
   const [loading, setLoading] = useState(false);
@@ -49,7 +51,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     const fetchAddresses = async () => {
       try {
 
-        const response = await axios.get(`${apiUrl}/api/get-addresses/${formData.username}`);
+        const response = await axios.get(`https://online-saleserver1.onrender.com/api/get-addresses/${formData.username}`);
        
 
         setAddressList(response.data);
@@ -86,7 +88,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     // Send DELETE request to backend to remove the product from the cart
     try {
 
-      await axios.delete(`${apiUrl}/api/remove-from-cart/${username}/${productId}`, {
+      await axios.delete(`https://online-saleserver1.onrender.com/api/remove-from-cart/${username}/${productId}`, {
 
         data: { productId } // Send product ID to the server
       });
@@ -114,7 +116,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
   
     try {
 
-      await axios.delete(`${apiUrl}/api/delete-orders/${username}/${orderId}`);
+      await axios.delete(`https://online-saleserver1.onrender.com/api/delete-orders/${username}/${orderId}`);
 
       const updatedOrders = orders.filter((_, i) => i !== index);
       setOrders(updatedOrders);
@@ -162,7 +164,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
 
         // Send PUT request to update the address in the backend
 
-        await axios.put(`${apiUrl}/api/update-address/${formData.username}`, addressDetails);
+        await axios.put(`https://online-saleserver1.onrender.com/api/update-address/${formData.username}`, addressDetails);
 
       } else {
         // Add new address
@@ -171,7 +173,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
 
         // Send POST request to add a new address to the backend
 
-        await axios.post(`${apiUrl}/api/add-address/${formData.username}`, newAddress);
+        await axios.post(`https://online-saleserver1.onrender.com/api/add-address/${formData.username}`, newAddress);
 
       }
 
@@ -204,7 +206,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     // Send DELETE request to remove the address from the backend
     try {
 
-      await axios.delete(`${apiUrl}/api/delete-address/${formData.username}/${index}`);
+      await axios.delete(`https://online-saleserver1.onrender.com/api/delete-address/${formData.username}/${index}`);
 
      
     } catch (error) {
@@ -244,7 +246,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
           // Send order data to backend after successful payment
           try {
 
-            const response = await axios.post(`${apiUrl}/api/orders`, {
+            const response = await axios.post(`https://online-saleserver1.onrender.com/api/orders`, {
 
      
               username: formData.username, // Ensure formData.username is defined
@@ -304,7 +306,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
         // Send order data to backend for COD
         try {
 
-          const response = await axios.post(`${apiUrl}/api/orders`, {
+          const response = await axios.post(`https://online-saleserver1.onrender.com/api/orders`, {
 
         
             username: formData.username, // Ensure this is defined
@@ -340,7 +342,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     try {
       // Use your server endpoint for sending messages
 
-      const response = await axios.post(`${apiUrl}/send-message`, {
+      const response = await axios.post(`https://online-saleserver1.onrender.com/send-message`, {
 
     
         messageBody: `${method}: ${userInput}`, // Dynamic message body based on the payment method
@@ -380,7 +382,7 @@ const handleorder = async () => {
     try {
       // Fetch orders from backend
 
-      const response = await axios.get(`${apiUrl}/api/orders`, {
+      const response = await axios.get(`https://online-saleserver1.onrender.com/api/orders`, {
 
         params: { username: formData.username }, // Send username as query param
       });
@@ -574,6 +576,7 @@ const handlegotocartpage=()=>{
 
 
 function App() {
+ 
   const [cart, setCart] = useState([]);
   const [view, setView] = useState('login'); // 'login', 'register', 'cart', 'products', 'forgotPassword', 'orderSummary'
   const [formData, setFormData] = useState({
@@ -595,7 +598,7 @@ function App() {
     e.preventDefault();
     try {
 
-      const res = await axios.post(`${apiUrl}/api/register`, formData);
+      const res = await axios.post(`https://online-saleserver1.onrender.com/api/register`, formData);
 
       setMessage(res.data.message);
       setView('login');
@@ -609,7 +612,7 @@ function App() {
     e.preventDefault();
     try {
 
-      const res = await axios.post(`${apiUrl}/api/login`, {
+      const res = await axios.post(`https://online-saleserver1.onrender.com/api/login`, {
 
         username: formData.username,
         password: formData.password,
@@ -630,7 +633,7 @@ function App() {
     // Send product to backend
     try {
 
-      await axios.post(`${apiUrl}/api/add-to-cart`, {
+      await axios.post(`https://online-saleserver1.onrender.com/api/add-to-cart`, {
 
       
         username: formData.username, // Assuming you have the logged-in username in formData
