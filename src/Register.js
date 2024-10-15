@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import axios from 'axios';
 import './Register.css';
 
-
+const apiUrl = process.env.REACT_APP_API_URL;
 const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) => {
   const [userInput1, setUserInput1] = useState("");
   const [loading, setLoading] = useState(false);
@@ -39,7 +39,7 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     { name: 'Product 5', image: 'image5.png', price: 30 },
   ];
 
-  const apiUrl = process.env.REACT_APP_API_URL;
+  
 
 
 
