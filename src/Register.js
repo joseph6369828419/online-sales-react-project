@@ -38,13 +38,21 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     { name: 'Product 4', image: 'image4.png', price: 25 },
     { name: 'Product 5', image: 'image5.png', price: 30 },
   ];
+<<<<<<< HEAD
   const apiUrl = process.env.REACT_APP_API_URL;
+=======
+
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
 
   useEffect(() => {
     // Fetch existing addresses from the backend
     const fetchAddresses = async () => {
       try {
+<<<<<<< HEAD
         const response = await axios.get(`${apiUrl}/api/get-addresses/${formData.username}`);
+=======
+        const response = await axios.get(`http://localhost:5000/api/get-addresses/${formData.username}`);
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
         setAddressList(response.data);
       } catch (error) {
         console.error('Error fetching addresses:', error);
@@ -78,7 +86,11 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
 
     // Send DELETE request to backend to remove the product from the cart
     try {
+<<<<<<< HEAD
       await axios.delete(`${apiUrl}/api/remove-from-cart/${username}/${productId}`, {
+=======
+      await axios.delete(`http://localhost:5000/api/remove-from-cart/${username}/${productId}`, {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
         data: { productId } // Send product ID to the server
       });
       alert('Product removed from cart!');
@@ -104,7 +116,11 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     if (!confirmCancel) return;
   
     try {
+<<<<<<< HEAD
       await axios.delete(`${apiUrl}/api/delete-orders/${username}/${orderId}`);
+=======
+      await axios.delete(`http://localhost:5000/api/delete-orders/${username}/${orderId}`);
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
       const updatedOrders = orders.filter((_, i) => i !== index);
       setOrders(updatedOrders);
       alert('Order canceled successfully!');
@@ -150,14 +166,22 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
         setEditIndex(null); // Reset edit index
 
         // Send PUT request to update the address in the backend
+<<<<<<< HEAD
         await axios.put(`${apiUrl}/api/update-address/${formData.username}`, addressDetails);
+=======
+        await axios.put(`http://localhost:5000/api/update-address/${formData.username}`, addressDetails);
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
       } else {
         // Add new address
         const newAddress = { ...addressDetails };
         setAddressList([...addressList, newAddress]);
 
         // Send POST request to add a new address to the backend
+<<<<<<< HEAD
         await axios.post(`${apiUrl}/api/add-address/${formData.username}`, newAddress);
+=======
+        await axios.post(`http://localhost:5000/api/add-address/${formData.username}`, newAddress);
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
       }
 
       // Clear the address form
@@ -188,7 +212,11 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
 
     // Send DELETE request to remove the address from the backend
     try {
+<<<<<<< HEAD
       await axios.delete(`${apiUrl}/api/delete-address/${formData.username}/${index}`);
+=======
+      await axios.delete(`http://localhost:5000/api/delete-address/${formData.username}/${index}`);
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
     } catch (error) {
       console.error('Error deleting address:', error);
     }
@@ -225,7 +253,11 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
         handler: async function (response) {
           // Send order data to backend after successful payment
           try {
+<<<<<<< HEAD
             const response = await axios.post(`${apiUrl}/api/orders`, {
+=======
+            const response = await axios.post('http://localhost:5000/api/orders', {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
               username: formData.username, // Ensure formData.username is defined
               order: order,
               razorpay_payment_id: response.razorpay_payment_id // Include payment ID if needed
@@ -282,7 +314,11 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
   
         // Send order data to backend for COD
         try {
+<<<<<<< HEAD
           const response = await axios.post(`${apiUrl}/api/orders`, {
+=======
+          const response = await axios.post('http://localhost:5000/api/orders', {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
             username: formData.username, // Ensure this is defined
             order: order,
             payment_method: "cod" // Include payment method
@@ -315,7 +351,11 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     setLoading(true);
     try {
       // Use your server endpoint for sending messages
+<<<<<<< HEAD
       const response = await axios.post(`${apiUrl}/send-message`, {
+=======
+      const response = await axios.post('http://localhost:5000/send-message', {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
         messageBody: `${method}: ${userInput}`, // Dynamic message body based on the payment method
         toNumber: '+916369828419', // Your number
       });
@@ -352,7 +392,11 @@ const handleorder = async () => {
   if (formData.username) { // Ensure username is available
     try {
       // Fetch orders from backend
+<<<<<<< HEAD
       const response = await axios.get(`${apiUrl}/api/orders`, {
+=======
+      const response = await axios.get('http://localhost:5000/api/orders', {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
         params: { username: formData.username }, // Send username as query param
       });
 
@@ -565,7 +609,11 @@ function App() {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
       const res = await axios.post(`${apiUrl}/api/register`, formData);
+=======
+      const res = await axios.post('http://localhost:5000/api/register', formData);
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
       setMessage(res.data.message);
       setView('login');
     } catch (error) {
@@ -577,7 +625,11 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+<<<<<<< HEAD
       const res = await axios.post(`${apiUrl}/api/login`, {
+=======
+      const res = await axios.post('http://localhost:5000/api/login', {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
         username: formData.username,
         password: formData.password,
       });
@@ -596,7 +648,11 @@ function App() {
 
     // Send product to backend
     try {
+<<<<<<< HEAD
       await axios.post(`${apiUrl}/api/add-to-cart`, {
+=======
+      await axios.post('http://localhost:5000/api/add-to-cart', {
+>>>>>>> f86a40c418131635c44897d42ddfdbe1aa349126
         username: formData.username, // Assuming you have the logged-in username in formData
         product: {
           name: product.name,
