@@ -123,12 +123,12 @@ html, body {
     margin-top: 5%;
   }
 
-
-  /* Media query for screen widths between 450px and 750px */
-@media screen and (min-width: 450px) and (max-width: 750px) {
+/* Media query for screen widths between 400px and 750px */
+@media screen and (min-width: 350px) and (max-width: 750px) {
     .card-container-head {
         display: grid; /* Use grid layout */
         grid-template-columns: repeat(2, 1fr); /* 2 columns of equal width */
+        grid-template-rows: repeat(2, auto); /* 2 rows */
         gap: 20px; /* Adjust gap between grid items */
         margin-left: 0; /* Reset margin on smaller screens */
         margin-top: 20px; /* Adjust top margin */
@@ -136,5 +136,6 @@ html, body {
 
     .card-container {
         max-width: none; /* Remove max-width to allow cards to take full width */
+        width: 100%; /* Ensure cards take the full width of their grid cell */
     }
 }
