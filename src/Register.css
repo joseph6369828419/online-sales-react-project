@@ -1,0 +1,509 @@
+.cart-container {
+    max-height: 400px; /* Set a maximum height for the cart */
+    overflow-y: auto;  /* Enable vertical scrolling */
+    padding: 20px;     /* Add some padding */
+    border: 1px solid #ccc; /* Optional: Add a border */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    background-color: #f9f9f9; /* Optional: Add a background color */
+}
+
+.cart-title {
+    text-align: center;
+    color: #333;
+}
+
+.empty-cart {
+    text-align: center;
+    color: #666;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.cart-item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.cart-item-name {
+    font-size: 18px;
+    margin-left: 10%;
+}
+
+.cart-item-price,
+.cart-item-quantity {
+    margin-left: 20%;
+}
+
+.button-container {
+    display: flex;                   /* Use flexbox for layout */
+    gap: 10px;                      /* Space between buttons */
+    position: fixed;                /* Fixed position for the container */
+    bottom: 20px;                   /* Distance from the bottom */
+    right: 20px;                    /* Distance from the right */
+    z-index: 1000;   
+    margin-right: 20%;              /* Ensure it stays above other elements */
+}
+
+.buy-now-button,
+.order-button,
+.address-button,
+.cancel-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 65px;
+    cursor: pointer;
+    font-size: 1.3rem;
+}
+
+.remove-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-left: 10%;
+}
+
+.remove-button:hover,
+.buy-now-button:hover,
+.order-button:hover,
+.address-button:hover,
+.cancel-button:hover {
+    background-color: #218838;
+}
+
+.payment-methods {
+    margin: 20px 0;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 758px) {
+    .cart-container {
+        padding: 10px; /* Reduce padding for smaller screens */
+     
+    }
+
+    .cart-item {
+        flex-direction: column; /* Stack items vertically */
+        align-items: flex-start; /* Align items to the left */
+    }
+
+    .cart-item-image {
+        width: 80px; /* Adjust image size */
+        height: 80px;
+        margin-right: 0; /* Remove right margin */
+        margin-bottom: 10px; /* Add space below the image */
+    }
+
+    .cart-item-name {
+        font-size: 16px; /* Adjust font size */
+        margin-left: 0; /* Remove left margin */
+    }
+
+    .cart-item-price,
+    .cart-item-quantity {
+        margin-left: 0; /* Remove left margin */
+        margin-top: 5px; /* Add space above */
+    }
+
+  
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center; /* Center align buttons */
+        bottom: 30%; /* Adjust position */
+        right: 10px; /* Adjust position */
+        margin-right: 20%; /* Remove right margin */
+    }
+
+    .buy-now-button,
+    .order-button,
+    .address-button,
+    .cancel-button
+    {
+        display: block; /* Display buttons as blocks */
+        width: 100%; /* Full width */
+        padding: 10px 0; /* Adjust padding for better spacing */
+        font-size: 1.1rem; /* Adjust font size */
+        margin-bottom: 10px; /* Space between buttons */
+        text-align: center; /* Center text inside buttons */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+  
+  .order-details {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .order-item {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .order-item-details {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .order-item-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+  
+  .order-item-info p {
+    margin: 5px 0;
+  }
+  
+  .address-form {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  .address-form input {
+    display: block;
+    width: calc(100% - 20px);
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .submitted-addresses {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+
+  
+
+
+/* Media query for screens up to 460px */
+@media (max-width: 450px) {
+    .address-form {
+        padding: 5px; /* Reduce padding on smaller screens */
+        border-radius: 2px; /* Adjust border radius */
+    }
+
+    .address-form input {
+        padding: 8px; /* Adjust input padding */
+        font-size: 14px; /* Make font size smaller for better fit */
+    }
+
+    .submitted-addresses {
+        margin-top: 15px; /* Reduce margin on smaller screens */
+    }
+
+    table {
+        width: 90%; /* Set table width to 90% for better responsiveness */
+        font-size: 14px; /* Adjust table font size */
+        margin: auto; /* Center the table */
+    }
+
+    th, td {
+        padding: 8px; /* Reduce padding in table cells */
+    }
+}
+
+/* Media query for screens up to 750px */
+@media (max-width: 750px) {
+    .address-form {
+        padding: 10px; /* Slightly increase padding for larger mobile screens */
+        border-radius: 4px; /* Adjust border radius */
+    }
+
+    .address-form input {
+        padding: 10px; /* Adjust input padding */
+        font-size: 16px; /* Increase font size for better readability */
+    }
+
+    .submitted-addresses {
+        margin-top: 20px; /* Increase margin for better spacing */
+    }
+
+    table {
+        width: 80%; /* Set table width to 80% */
+        font-size: 16px; /* Adjust table font size */
+        margin: auto; /* Center the table */
+    }
+
+    th, td {
+        padding: 10px; /* Increase padding in table cells */
+    }
+}
+
+
+
+
+
+
+
+
+  .login-container {
+    background-color: #f5f5f5; /* Light background color */
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px; /* Set a max width for the form */
+    margin: auto; /* Center the form */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .login-title {
+    color: #333; /* Dark text color */
+    text-align: center; /* Center the title */
+  }
+  
+  .login-form {
+    display: flex;
+    flex-direction: column; /* Stack inputs vertically */
+  }
+  
+  .input-field {
+    margin: 10px 0; /* Space between inputs */
+    padding: 10px; /* Padding inside the input */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 4px; /* Rounded corners */
+  }
+  
+  .submit-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px; /* Padding */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .submit-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .register-button {
+    background-color: #007BFF; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 10px; /* Padding */
+    border-radius: 4px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .register-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .message {
+    color: red; /* Red text for error messages */
+    text-align: center; /* Center the message */
+  }
+  
+
+
+
+
+
+
+
+
+/* styles.css */
+
+/* Centering the registration form */
+.register-container {
+    display: flex; /* Enable flexbox layout */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    background-color: #f8f9fa; /* Optional: background color for the page */
+  
+}
+
+.register-form {
+    background-color: #f0f0f0; /* Background color of the form */
+    border: 2px solid #007BFF; /* Border color of the form */
+    padding: 20px; /* Padding inside the form */
+    border-radius: 5px; /* Rounded corners */
+    width: 300px; /* Fixed width for the form */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    margin-left: 40%;
+}
+h3{
+    margin-left: 45%;
+    font-size: 2rem;
+}
+
+.register-form input {
+    margin: 10px 0; /* Margin between inputs */
+    padding: 15px; /* Increased padding for inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+    border: 1px solid #ccc; /* Border color for inputs */
+    width: 100%; /* Full width of the container */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.register-form button {
+    background-color: #007BFF; /* Button color */
+    color: white; /* Button text color */
+    padding: 10px; /* Padding inside button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    width: 100%; /* Full width of the container */
+}
+
+.register-form button:hover {
+    background-color: #0056b3; /* Button hover color */
+}
+
+@media all and (max-width: 450px) {
+    .register-form {
+        width: 60%; /* Make the form responsive */
+        margin-left: 5%; /* Center the form */
+        margin-right: 0; /* Remove margin right */
+    }
+
+    h3 {
+        margin-left: 0; /* Center the heading */
+        font-size: 1.5rem; /* Adjust font size for mobile */
+    }
+}
+
+@media all and (max-width: 750px) {
+    .register-form {
+        width: 70%; /* Adjust the width for screens up to 750px */
+        margin-left: 15%; /* Center the form */
+        margin-right: 15%; /* Add margin-right for symmetry */
+    }
+
+    h3 {
+        margin-left: 0; /* Center the heading */
+        text-align: center; /* Center the heading text */
+        font-size: 1.75rem; /* Adjust font size for larger mobile screens */
+    }
+}
+
+
+
+
+
+
+
+
+
+
+.product-item {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Padding around the content */
+    margin: 16px 0; /* Spacing between product items */
+    background-color: #f9f9f9; /* Light background color */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  }
+  
+  .product-item h3 {
+    color: #333; /* Dark text color */
+  }
+  
+  .product-item p {
+    color: #555; /* Slightly lighter text color for price */
+  }
+  
+  .quantity-controls {
+    display: flex; /* Flexbox for layout */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .quantity-button {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 8px 12px; /* Padding inside buttons */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin: 0 4px; /* Spacing between buttons */
+  }
+  
+  .quantity-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .add-to-cart-button {
+    background-color: #28a745; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Padding inside button */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 10px; /* Spacing above the button */
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

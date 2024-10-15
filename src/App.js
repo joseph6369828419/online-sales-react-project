@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+// src/AppRouter.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Register from './Register';
+// Ensure correct casing
 
-function App() {
+
+function AppRouter() {
+  // Initialize cart state
+  const [cart, setCart] = useState([]);
+
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/register">Register</Link>
+          </li>
+         
+        
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+       
+     
+        <Route
+          path="*"
+          element={
+            <div>
+              <h2>Welcome to the Home Page</h2>
+            </div>
+          }
+        />
+      </Routes>
+    </Router>
   );
 }
 
-export default App;
+export default AppRouter;
