@@ -513,9 +513,9 @@ const handlegotocartpage=()=>{
       ))
     )}
     <div>
-      <button onClick={handlegotocartpage}>Go to CartPage</button>
+      <button className="remove-button" onClick={handlegotocartpage}>Go to CartPage</button>
          
-      <button className="address-button1" onClick={handleGoToViewCart}>
+      <button className="remove-button" onClick={handleGoToViewCart}>
         Go to viewCart
       </button>
     </div>
@@ -531,7 +531,7 @@ const handlegotocartpage=()=>{
           <input type="text" name="state" placeholder="State" value={addressDetails.state} onChange={handleAddressChange} required />
           <input type="text" name="zip" placeholder="Zip Code" value={addressDetails.zip} onChange={handleAddressChange} required />
           <input type="text" name="country" placeholder="Country" value={addressDetails.country} onChange={handleAddressChange} required />
-          <button type="submit">{editIndex !== null ? "Update Address" : "Submit Address"}</button>
+          <button type="submit"className="remove-button">{editIndex !== null ? "Update Address" : "Submit Address"}</button>
         </form>
       )}
   
@@ -558,8 +558,8 @@ const handlegotocartpage=()=>{
                   <td>{address.zip}</td>
                   <td>{address.country}</td>
                   <td>
-                    <button onClick={() => handleEdit(index)}>Edit</button>
-                    <button onClick={() => handleDelete(index)}>Delete</button>
+                    <button className="remove-button" onClick={() => handleEdit(index)}>Edit</button>
+                    <button  className="remove-button"onClick={() => handleDelete(index)}>Delete</button>
                   </td>
                 </tr>
               ))}

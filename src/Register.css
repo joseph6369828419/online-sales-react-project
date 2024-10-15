@@ -54,18 +54,20 @@
     z-index: 1000;   
     margin-right: 20%;              /* Ensure it stays above other elements */
 }
-
 .buy-now-button,
 .order-button,
 .address-button,
 .cancel-button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 65px;
-    cursor: pointer;
-    font-size: 1.3rem;
+    display: block; /* Display buttons as blocks */
+    width: 100%; /* Full width */
+    padding-left: 30px; /* Adjust padding for better spacing */
+    padding-right: 30px;
+    font-size: 1.1rem; /* Adjust font size */
+    margin-bottom: 10px; /* Space between buttons */
+    text-align: center; /* Center text inside buttons */
+    margin-top: 5%;
+    background-color: #218838;
+
 }
 
 .remove-button {
@@ -87,8 +89,23 @@
 }
 
 .payment-methods {
-    margin: 20px 0;
+  display: flex; /* Aligns items horizontally */
+  align-items: center; /* Vertically centers the items */
+  margin-top: 20px; /* Space above the payment methods */
+  
 }
+
+.payment-methods label {
+  margin-right: 20px; /* Space between labels */
+  font-size: 1rem; /* Adjust font size */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
+.payment-methods input[type="radio"] {
+  margin-right: 8px; /* Space between radio button and label text */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+}
+
 
 /* Media Query for Mobile Devices */
 @media (max-width: 758px) {
@@ -122,12 +139,12 @@
 
   
     .button-container {
-        flex-direction: column; /* Stack buttons vertically */
-        align-items: center; /* Center align buttons */
-        bottom: 30%; /* Adjust position */
-        right: 10px; /* Adjust position */
-        margin-right: 20%; /* Remove right margin */
-    }
+      display: grid; /* Use grid layout */
+      grid-template-columns: repeat(2, 1fr); /* 2 columns of equal width */
+      grid-gap: 10px; /* Space between rows and columns */
+      text-align: center;
+    
+  }
 
     .buy-now-button,
     .order-button,
@@ -140,7 +157,11 @@
         font-size: 1.1rem; /* Adjust font size */
         margin-bottom: 10px; /* Space between buttons */
         text-align: center; /* Center text inside buttons */
+        background-color: #218838;
+    
     }
+
+    
 }
 
 

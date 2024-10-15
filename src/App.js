@@ -2,37 +2,38 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Register from './Register';
+import "./App.css"
 // Ensure correct casing
-
+import Home from "./Home.js"
 
 function AppRouter() {
-  // Initialize cart state
-  const [cart, setCart] = useState([]);
+  const [isButtonVisible, setIsButtonVisible] = useState(true);  // Track button visibility
 
+  const handleClick = () => {
+    setIsButtonVisible(false);  // Hide the button after it's clicked
+  };
  
   return (
     <Router>
-      <nav>
+     <nav>
         <ul>
           <li>
-            <Link to="/register">Register</Link>
+            {isButtonVisible && (
+              <Link 
+                to="/register" 
+                className="shop-now-button" 
+                onClick={handleClick}
+              >
+                Show Now
+              </Link>
+            )}
           </li>
-         
-        
         </ul>
       </nav>
       <Routes>
         <Route path="/register" element={<Register />} />
        
-     
-        <Route
-          path="*"
-          element={
-            <div>
-              <h2>Welcome to the Home Page</h2>
-            </div>
-          }
-        />
+        <Route path="*" element={<Home />} />  
       </Routes>
     </Router>
   );
