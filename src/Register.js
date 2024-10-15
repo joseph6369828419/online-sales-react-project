@@ -704,47 +704,53 @@ function App() {
 )}
 
 {view === 'products' && (
-  <div>
-    <h2>Products</h2>
-    {[
-      { name: 'Product 1', image: 'image1.jfif', price: 10 },
-      { name: 'Product 2', image: 'image2.jpg', price: 20 },
-      { name: 'Product 3', image: 'image3.png', price: 15 },
-      { name: 'Product 4', image: 'image4.png', price: 25 },
-      { name: 'Product 5', image: 'image5.png', price: 30 }
-    ].map((product, index) => (
-      <div className="product-item" key={index}>
-        <img src={product.image} alt={product.name} width="150" height="200" />
-        <h2>{product.name}</h2>
-        <p>Price: ${product.price}.00</p>
-        <div className="quantity-controls">
-          <button
-            className="quantity-button"
-            onClick={() => setProductQuantity(prev => Math.max(1, prev - 1))}
-          >
-            -
-          </button>
-          <span>{productQuantity}</span>
-          <button
-            className="quantity-button"
-            onClick={() => setProductQuantity(prev => prev + 1)}
-          >
-            +
-          </button>
-        </div>
+  
+  <div className="product-container">
+ 
+  {[
+    { name: 'Bread Cake ', image: 'cake1.jfif', price: 10 },
+    { name: 'Grape Juice', image: 'grape1.jfif', price: 20 },
+    { name: 'Wed-Flower', image: 'wedding-flower1.jfif', price: 15 },
+    { name: 'Pure Honey', image: 'honey1.jfif', price: 25 },
+    { name: 'Rose Milk', image: 'rosemilk.jfif', price: 30 }
+  ].map((product, index) => (
+    <div className="product-item" key={index}>
+      <img src={product.image} alt={product.name} width="150" height="200" />
+      <h3 className='product-name'>{product.name}</h3>
+      <p>Price: ${product.price}.00</p>
+      <div className="quantity-controls">
         <button
-          className="add-to-cart-button"
-          onClick={() => handleAddToCart({ name: product.name, image: product.image, price: product.price, quantity: productQuantity })}
+          className="quantity-button"
+          onClick={() => setProductQuantity(prev => Math.max(1, prev - 1))}
         >
-          Add to Cart
+          -
+        </button>
+        <span>{productQuantity}</span>
+        <button
+          className="quantity-button"
+          onClick={() => setProductQuantity(prev => prev + 1)}
+        >
+          +
         </button>
       </div>
-    ))}
-    <button className="add-to-cart-button" onClick={() => setView('cart')}>
-      View Cart
+      <button
+        className="add-to-cart-button"
+        onClick={() => handleAddToCart({ name: product.name, image: product.image, price: product.price, quantity: productQuantity })}
+      >
+        Add to Cart
+      </button>
+      <div>
+      <button className="add-to-cart-button1" onClick={() => setView('cart')}>
+ <img className="viewcart-image"src="/shopping-cart.png"/>
     </button>
-  </div>
+        </div>
+    </div>
+  ))}
+    </div>
+    
 )}
+  
+
 
 
     </div>
