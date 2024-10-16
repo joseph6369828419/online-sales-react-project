@@ -485,7 +485,7 @@ const handlegotocartpage=()=>{
                 checked={paymentMethod === "razorpay"}
                 onChange={() => setPaymentMethod("razorpay")}
               />
-              Razorpay
+              Gpay
             </label>
             <label style={{ marginLeft: '20px' }}>
               <input
@@ -494,7 +494,7 @@ const handlegotocartpage=()=>{
                 checked={paymentMethod === "cod"}
                 onChange={() => setPaymentMethod("cod")}
               />
-              Cash on Delivery
+              Cash 
             </label>
           </div>
           <button className="order-button" onClick={handleorder}>Order</button>
