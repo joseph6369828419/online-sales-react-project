@@ -5,7 +5,7 @@ import './Register.css';
 
 
 
-const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) => {
+const Cart = ({ cart, setCart, formData,  username  }) => {
   const [userInput1, setUserInput1] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -33,15 +33,15 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
 
   const [productQuantity, setProductQuantity] = useState(1);
 
-  const products = [
-    { name: 'Product 1', image: 'image1.jfif', price: 10 },
-    { name: 'Product 2', image: 'image2.jpg', price: 20 },
-    { name: 'Product 3', image: 'image3.png', price: 15 },
-    { name: 'Product 4', image: 'image4.png', price: 25 },
-    { name: 'Product 5', image: 'image5.png', price: 30 },
-  ];
+  const [products, setProducts] = useState([
+    { name: 'Bread Cake', image: 'cake1.jfif', price: 10, quantity: 1 },
+    { name: 'Grape Juice', image: 'grape1.jfif', price: 20, quantity: 1 },
+    { name: 'Wed-Flower', image: 'wedding-flower1.jfif', price: 15, quantity: 1 },
+    { name: 'Pure Honey', image: 'honey1.jfif', price: 25, quantity: 1 },
+    { name: 'Rose Milk', image: 'rosemilk.jfif', price: 30, quantity: 1 }
+  ]);
 
-  
+  const[view,setView]=useState("")
 
 
 
@@ -62,7 +62,6 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
 
     fetchAddresses();
   }, [formData.username]); // Fetch addresses when the username changes
-
 
 
 
@@ -99,38 +98,34 @@ const Cart = ({ cart, setCart, formData, setView, username, handleAddToCart  }) 
     }
   };
 
-
-
   const handleCancel = async (index) => {
     const orderId = orders[index]._id; // Ensure you're using _id
     const username = formData.username;
-  
+
     if (!orderId) {
       alert('Invalid order ID.');
       return;
     }
-  
-    // Optional: Confirm the cancellation action
+
     const confirmCancel = window.confirm('Are you sure you want to cancel this order?');
     if (!confirmCancel) return;
-  
-    try {
 
+    try {
       await axios.delete(`https://online-saleserver1.onrender.com/api/delete-orders/${username}/${orderId}`);
 
       const updatedOrders = orders.filter((_, i) => i !== index);
       setOrders(updatedOrders);
       alert('Order canceled successfully!');
+
+      // Send a message after canceling the order
+      await sendMessage(`Order ${orderId} canceled`, 'Cancellation');
     } catch (error) {
       console.error('Error canceling the order:', error);
       if (error.response) {
-        // Server responded with a status other than 2xx
         alert(`Error: ${error.response.data.message}`);
       } else if (error.request) {
-        // Request was made but no response received
         alert('No response from server. Please try again later.');
       } else {
-        // Something else caused the error
         alert('An unexpected error occurred.');
       }
     }
@@ -411,34 +406,73 @@ const handlegotocartpage=()=>{
   setShowAddressForm(true); // Show the address form as well setShowCart(true);
  
 }
-  const handleGoToViewCart = () => {
-    setinvisible(true)
+ 
+
+
+
+  const handleAddToCart = async (product) => {
+    // Add product to cart state
+    setCart((prevCart) => [...prevCart, product]);
+
+    // Send product to backend
+    try {
+
+      await axios.post(`https://online-saleserver1.onrender.com/api/add-to-cart`, {
+
+      
+        username: formData.username, // Assuming you have the logged-in username in formData
+        product: {
+          name: product.name,
+          image: product.image,
+          price: product.price,
+          quantity: product.quantity,
+        },
+      });
+      alert('Product added to cart and saved to database!');
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      alert('Failed to add product to cart.');
+    }
   };
+
+  const handleViewChange = (newView) => {
+    setView(newView);
+  };
+
+
+
   return (
     <div className="cart-container">
       <h2 className="cart-title">Cart</h2>
   
     
-           {showCart && (
-        <>
-          {cart.length === 0 ? (
-            <p className="empty-cart">Your cart is empty.</p>
-          ) : (
-            cart.map((product, index) => (
-              <div key={index} className="cart-item">
-                {product.image1 && product.image1.jfif ? (
-                  <img src={product.image1.jfif} alt={product.name} className="cart-item-image" />
-                ) : (
-                  <img src="/image1.jfif" alt="Default" className="cart-item-image" /> // Fallback image
-                )}
-                <h3 className="cart-item-name">{product.name}</h3>
-                <p className="cart-item-price">Price: ${product.price.toFixed(2)}</p>
-                <p className="cart-item-quantity">Quantity: {product.quantity}</p>
-                <button className="remove-button" onClick={() => handleRemove(index)}>Remove</button>
-              </div>
-           
-            ))
+      {showCart && (
+  <>
+    {cart.length === 0 ? (
+      <p className="empty-cart">Your cart is empty.</p>
+    ) : (
+      cart.map((product, idx) => (
+        <div key={idx} className="order-item-details">
+        <img
+          src={product.image || '/image1.jfif'} // Fallback image if item.image is not available
+          alt={product.name}
+          className="order-item-image"
+          onError={(e) => {
+            e.target.onerror = null; // Prevent infinite loop
+            e.target.src = '/image1.jfif';
+          }}
+        />
+       
+          <h3 className="cart-item-name">{product.name}</h3>
+          <p className="cart-item-price">Price: ${product.price.toFixed(2)}</p>
+          <p className="cart-item-quantity">Quantity: {product.quantity}</p>
+          <button className="remove-button" onClick={() => handleRemove(idx)}>Remove</button>
+        </div>
+      ))
           )}
+
+
+          
           <div class="button-container">
           {cart.length > 0 && (
             <button className="buy-now-button" onClick={handlebuynow1}>Buy Now</button>
@@ -466,6 +500,7 @@ const handlegotocartpage=()=>{
           <button className="order-button" onClick={handleorder}>Order</button>
           <button className="address-button" onClick={handleadress}>Address</button>
        
+      
 
           </div>
         </>
@@ -514,12 +549,53 @@ const handlegotocartpage=()=>{
     )}
     <div>
       <button className="remove-button" onClick={handlegotocartpage}>Go to CartPage</button>
-         
-      <button className="remove-button" onClick={handleGoToViewCart}>
-        Go to viewCart
-      </button>
+
     </div>
    
+    <div className="product-container">
+   
+      {products.map((product, index) => (
+        <div className="product-item" key={index}>
+          <img src={product.image} alt={product.name} width="150" height="200" />
+          <h3 className='product-name'>{product.name}</h3>
+          <p>Price: ${product.price}.00</p>
+          <div className="quantity-controls">
+            <button
+              className="quantity-button"
+              onClick={() => {
+                if (product.quantity > 1) {
+                  const updatedProducts = [...products];
+                  updatedProducts[index].quantity -= 1;
+                  setProducts(updatedProducts);
+                }
+              }}
+            >
+              -
+            </button>
+            <span>{product.quantity}</span>
+            <button
+              className="quantity-button"
+              onClick={() => {
+                const updatedProducts = [...products];
+                updatedProducts[index].quantity += 1;
+                setProducts(updatedProducts);
+              }}
+            >
+              +
+            </button>
+          </div>
+          <button
+            className="add-to-cart-button"
+            onClick={() => handleAddToCart({ ...product })}
+          >
+            Add to Cart
+          </button>
+        </div>
+      ))}
+      <div>
+     
+      </div>
+    </div>
         </div>
       )}
   
@@ -585,9 +661,11 @@ function App() {
     email: '',
     username: '',
     password: '',
+    newPassword: '',
   });
   const [message, setMessage] = useState('');
- const [productQuantity, setProductQuantity] = useState(1);
+  const [productQuantities, setProductQuantities] = useState({});
+
  
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -611,20 +689,17 @@ function App() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-
-      const res = await axios.post(`https://online-saleserver1.onrender.com/api/login`, {
-
+      const res = await axios.post('https://online-saleserver1.onrender.com/api/login', {
         username: formData.username,
-        password: formData.password,
+        password: formData.password, // Ensure this is correct
       });
       setMessage(res.data.message);
       setCart(res.data.cart);
       setView('products'); // Redirect to products
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Login failed');
+      setMessage(error.response?.data?.message || 'Login failed'); // Set error message
     }
   };
-
   // Function to add product to cart and database
   const handleAddToCart = async (product) => {
     // Add product to cart state
@@ -650,37 +725,68 @@ function App() {
       alert('Failed to add product to cart.');
     }
   };
-
-
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    
+    try {
+      // Update password in backend
+      const response = await axios.put('https://online-saleserver1.onrender.com/api/forgot-password', {
+        username: formData.username, // Ensure formData holds the correct values
+        newPassword: formData.newPassword,
+      });
+  
+      // Show success message
+      setMessage(response.data.message);
+      
+      // Instead of auto-login, just change the view to login
+      setView('login'); // Show login view
+  
+      // Optionally clear formData or set a new value for username
+      setFormData({ ...formData, password: '', newPassword: '' }); // Reset fields after password reset
+  
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Failed to reset password.');
+    }
+  };
  
 
   return (
     <div className="App">
   {view === 'login' && (
-    <div className="login-container">
-      <h2 className="login-title">Login</h2>
-      <form className="login-form" onSubmit={handleLogin}>
-        <input
-          type="text"
-          name="username"
-          className="input-field"
-          placeholder="Username"
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          className="input-field"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <button type="submit" className="submit-button">Login</button>
-      </form>
-      <button onClick={() => setView('register')} className="register-button">Register</button>
-      {message && <p className="message">{message}</p>}
+  <div className="login-container">
+    <h2 className="login-title">Login</h2>
+    <form className="login-form" onSubmit={handleLogin}>
+      <input
+        type="text"
+        name="username"
+        className="input-field"
+        placeholder="Username"
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        className="input-field"
+        placeholder="Password"
+        onChange={handleChange}
+        required
+      />
+      <button type="submit" className="submit-button">Login</button>
+    </form>
+    <button onClick={() => { setMessage(''); setView('register'); }} className="register-button">Register</button>
+    <button 
+      onClick={() => { setMessage(''); setView('forgot'); }} 
+      className="forgot-button"
+    >
+      Forgot Password
+    </button>
+
+    {/* Display message only in the login view */}
+    {message && <p className="message">{message}</p>}
+    
     </div>
+
   )}
 
 
@@ -694,61 +800,100 @@ function App() {
       <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
       <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
       <button type="submit">Register</button>
+      <button onClick={() => { setMessage(''); setView('login'); }} className="login-button">Back to Login</button>
     </form>
     {message && <p>{message}</p>}
   </div>
 )}
 
+
+
+{view === 'forgot' && (
+  <div className="forgot-container">
+    <h2 className="forgot-title">Forgot Password</h2>
+    <form className="forgot-form" onSubmit={handleForgotPassword}>
+      <input
+        type="text"
+        name="username"
+        className="input-field"
+        placeholder="Username"
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="password"
+        name="newPassword"
+        className="input-field"
+        placeholder="New Password"
+        onChange={handleChange}
+        required
+      />
+      <button type="submit" className="submit-button">Reset Password</button>
+    </form>
+ {/*   <button onClick={() => { setMessage(''); setView('login'); }} className="login-button">Back to Login</button>*/}
+
+    {/* Display message for forgot password */}
+    {message && <p className="message">{message}</p>}
+  </div>
+)}
 {view === 'cart' && (
   <Cart cart={cart} setCart={setCart} formData={formData} setView={setView} />
 )}
-
 {view === 'products' && (
-  
   <div className="product-container">
- 
-  {[
-    { name: 'Bread Cake ', image: 'cake1.jfif', price: 10 },
-    { name: 'Grape Juice', image: 'grape1.jfif', price: 20 },
-    { name: 'Wed-Flower', image: 'wedding-flower1.jfif', price: 15 },
-    { name: 'Pure Honey', image: 'honey1.jfif', price: 25 },
-    { name: 'Rose Milk', image: 'rosemilk.jfif', price: 30 }
-  ].map((product, index) => (
-    <div className="product-item" key={index}>
-      <img src={product.image} alt={product.name} width="150" height="200" />
-      <h3 className='product-name'>{product.name}</h3>
-      <p>Price: ${product.price}.00</p>
-      <div className="quantity-controls">
-        <button
-          className="quantity-button"
-          onClick={() => setProductQuantity(prev => Math.max(1, prev - 1))}
-        >
-          -
-        </button>
-        <span>{productQuantity}</span>
-        <button
-          className="quantity-button"
-          onClick={() => setProductQuantity(prev => prev + 1)}
-        >
-          +
-        </button>
-      </div>
-      <button
-        className="add-to-cart-button"
-        onClick={() => handleAddToCart({ name: product.name, image: product.image, price: product.price, quantity: productQuantity })}
-      >
-        Add to Cart
-      </button>
-      <div>
-      <button className="add-to-cart-button1" onClick={() => setView('cart')}>
- <img className="viewcart-image"src="/shopping-cart.png"/>
-    </button>
+    {[
+      { name: 'Bread Cake ', image: 'cake1.jfif', price: 10 },
+      { name: 'Grape Juice', image: 'grape1.jfif', price: 20 },
+      { name: 'Wed-Flower', image: 'wedding-flower1.jfif', price: 15 },
+      { name: 'Pure Honey', image: 'honey1.jfif', price: 25 },
+      { name: 'Rose Milk', image: 'rosemilk.jfif', price: 30 }
+    ].map((product, index) => (
+      <div className="product-item" key={index}>
+        <img src={product.image} alt={product.name} width="150" height="200" />
+        <h3 className='product-name'>{product.name}</h3>
+        <p>Price: ${product.price}.00</p>
+        <div className="quantity-controls">
+          <button
+            className="quantity-button"
+            onClick={() => setProductQuantities(prev => ({
+              ...prev,
+              [product.name]: Math.max(1, (prev[product.name] || 1) - 1)
+            }))}
+          >
+            -
+          </button>
+          <span>{productQuantities[product.name] || 1}</span>
+          <button
+            className="quantity-button"
+            onClick={() => setProductQuantities(prev => ({
+              ...prev,
+              [product.name]: (prev[product.name] || 1) + 1
+            }))}
+          >
+            +
+          </button>
         </div>
-    </div>
-  ))}
-    </div>
-    
+        <button
+          className="add-to-cart-button"
+          onClick={() => handleAddToCart({
+            name: product.name,
+            image: product.image,
+            price: product.price,
+            quantity: productQuantities[product.name] || 1
+          })}
+        >
+          Add to Cart
+        </button>
+        <div>
+          <button className="add-to-cart-button1" onClick={() => setView('cart')}>
+            <img className="viewcart-image" src="/shopping-cart.png" alt="View Cart" />
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
 )}
+
   
 
 

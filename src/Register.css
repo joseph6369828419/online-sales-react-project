@@ -514,11 +514,22 @@ h3{
   
     padding: 10px 15px; /* Padding inside button */
     cursor: pointer; /* Pointer cursor on hover */
-    margin-top: 5%; /* Spacing above the button */
+    margin-top: 2.5%; /* Spacing above the button */
     position: absolute;
     top: -1%;
     right: 3%;
+   
   }
+  .add-to-cart-button2 {
+    padding: 10px 15px; /* Padding inside button */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-top: 2.5%; /* Spacing above the button */
+    position: sticky; /* Use sticky positioning */
+    top: 10%; /* Adjust as needed */
+    right: 3%;
+    transition: opacity 0.3s; /* Smooth transition for showing/hiding */
+}
+
   
   .add-to-cart-button:hover {
     background-color: #218838; /* Darker green on hover */
@@ -544,6 +555,18 @@ h3{
     .product-name{
       font-size: 20px;
     }
+    .add-to-cart-button1 {
+ 
+  
+      padding: 10px 15px; /* Padding inside button */
+      cursor: pointer; /* Pointer cursor on hover */
+      margin-top: 6%; /* Spacing above the button */
+      position: absolute;
+      top: -1%;
+      right: 3%;
+     
+    }
+    
   }
 
 
@@ -559,7 +582,29 @@ h3{
 
 
 
-
+  .forgot-button {
+    background-color: #007bff; /* Bootstrap primary blue */
+    color: white; /* White text */
+    padding: 10px 15px; /* Top/bottom and left/right padding */
+    border: none; /* Remove default border */
+    border-radius: 4px; /* Slightly rounded corners */
+    font-size: 14px; /* Font size */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    text-decoration: none; /* Remove underline for links */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    margin-top: 5%;
+    margin-left: 7%;
+  }
+  
+  .forgot-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+  }
+  
+  .forgot-button:focus {
+    outline: none; /* Remove default focus outline */
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Shadow for focus effect */
+  }
+  
 
 
 

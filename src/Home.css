@@ -33,20 +33,21 @@ html, body {
   display: block;
   width: 100%;
   height: 100%;
-
+margin-top: 2%;
   object-position: center;
 }
 
 .shop-now-button {
   
   transform: translateX(-50%);
-  padding: 10px 20px;
+  padding: 20px 60px;
   background-color: #ff6600;
   color: white;
   text-decoration: none;
   font-size: 1.2rem;
-  border-radius: 5px;
+  border-radius: 30px;
   z-index: 1;
+ 
 }
 
 /* Responsive Styles */

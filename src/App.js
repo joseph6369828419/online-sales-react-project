@@ -6,6 +6,7 @@ import "./App.css"
 // Ensure correct casing
 import Home from "./Home.js"
 
+
 function AppRouter() {
   const [isButtonVisible, setIsButtonVisible] = useState(true);  // Track button visibility
 
